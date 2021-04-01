@@ -36,3 +36,9 @@ body {
     font-size: 1.5rem;
     text-shadow: black 3px 3px 8px;
 }
+
+.tempInfo,
+h1 span h4 {
+    font-size: 2rem;
+    text-shadow: black 3px 3px 5px;
+}

@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather App</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
@@ -15,17 +16,36 @@
         <div class="row">
             <div class="col-md-4"></div>
             <div class="col-md-4 text-center">
-                <input class="form-control cityNameInput" placeholder="Choose City" type="text" name="ity">
+                <input class="form-control cityNameInput" placeholder="Enter City" type="text" name="ity">
 
                 <div class="cityInfo"><span id='cityName'></span>, <span id='countryCode'></span></div>
                 <div><span id="today"></span></div>
+                <br>
+                <div class="tempInfo">
+                    <h1><span class="temp"></span></h1>
+                    <h4 class="tempMinMax"></h4>
+                </div>
+                <div class="weatherDesc">
+                    <img id='weatherIcon'>
+                    <br>
+                    <h1 id='weatherDescription'></h1>
+                </div>
+                <div>
+                    <span>
+                        <span><i class="fa fa-eye fa_custom"></i></span>
+                        <span id='visibility'></span>
+                        <br>
+                        <span><i class="fa fa-tint"></i></span>
+                        <span id='humidity'></span>
+                    </span>
+                </div>
             </div>
             <div class="col-md-4"></div>
 
         </div>
     </div>
 
-    <script src="/assets/js/app.js"></script>
+    <script src="./assets/js/app.js"></script>
 </body>
 
 </html>

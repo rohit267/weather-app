@@ -2,15 +2,12 @@ const apikey = "6199bdb67223d448c3f0c5da8eb6b705";
 let currentCityName = "";
 let lat = "";
 let lon = "";
-let weatherByCityNameEndpoint = `https://api.openweathermap.org/data/2.5/weather?q=${currentCityName}&appid=${apikey}`;
 
 $(document).ready(() => {
     getWeatherData(true);
-
-    $(".cityNameInput").on("input", (e) => {
-        cityNane = $(this).val();
-
-        if (cityNane.length > 0) getWeatherData(false);
+    $(".cityNameInput").on("keypress", (e) => {
+        currentCityName = e.target.value;
+        if (currentCityName.length > 0 && e.which == 13) getWeatherData(false);
     });
 });
 
@@ -20,36 +17,41 @@ function getWeatherData(byLocation) {
             navigator.geolocation.getCurrentPosition(getWeatherByLocation);
         }
     } else {
-        // $.get( "ajax/test.html", function( data ) {
-        //     $( ".result" ).html( data );
-        //     alert( "Load was performed." );
-        //   });
+        let weatherByCityNameEndpoint = `https://api.openweathermap.org/data/2.5/weather?q=${currentCityName}&units=metric&appid=${apikey}`;
+        $.get(weatherByCityNameEndpoint, function (data) {
+            populateData(data);
+        });
     }
 }
 
 function getWeatherByLocation(position) {
     lat = position.coords.latitude;
     lon = position.coords.longitude;
-    let weatherByLocationEndpoint = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apikey}`;
+    let weatherByLocationEndpoint = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apikey}`;
     $.get(weatherByLocationEndpoint, function (data) {
         populateData(data);
     });
 }
 
 function populateData(data) {
+    console.log(data);
     let options = {
         weekday: "long",
         year: "numeric",
         month: "long",
         day: "numeric",
-        // hour: "2-digit",
-        // minute: "2-digit",
-        // second: "2-digit",
-        // hour12: false,
     };
-    let today = new Date().toLocaleTimeString("en-us", options).substr(0, 25);
-    console.log(today);
+    let today = new Date().toLocaleTimeString("en-us", options).split(",");
     $("#cityName").html(data.name);
     $("#countryCode").html(data.sys.country);
-    $("#today").html(today);
+    $("#today").html(`${today[0]}, ${today[1]}, ${today[2]}`);
+    $(".temp").html(data.main.temp + "&deg;C");
+    $(".tempMinMax").html(data.main.temp_min + "/" + data.main.temp_max);
+    $("#weatherIcon").attr(
+        "src",
+        `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`
+    );
+    $("#weatherDescription").html(data.weather[0].main);
+    $("#visibility").html(data.visibility);
+    $("#humidity").html(data.main.humidity);
 }

@@ -3,7 +3,7 @@
     padding: 0;
 }
 body {
-    overflow: hidden;
+    overflow-x: hidden;
     height: 100vh;
     background: url("../img/backgroundImg.jpg") no-repeat;
     background-size: cover;
